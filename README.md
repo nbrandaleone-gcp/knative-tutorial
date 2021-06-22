@@ -1,4 +1,5 @@
 # Knative-tutorial
+![knative diagram](knative-eventing-architecture.png)
 
 This tutorial shows how to create a GKE cluster with Knative installed.
 We also run a Kafka cluster inside the Kubernetes cluster, to demonstrate
