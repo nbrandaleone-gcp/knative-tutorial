@@ -5,8 +5,8 @@ We also run a Kafka cluster inside the Kubernetes cluster, to demonstrate
 Kafka as an event source for a Knative service.
 
 ## Create a GKE cluster
-`./setup-cluster.sh
-gcloud container clusters list`
+`./setup-cluster.sh`
+`gcloud container clusters list`
 
 # Get Kubernetes credentials
 gcloud container clusters get-credentials <cluster-name> --zone us-central1-c
