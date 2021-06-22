@@ -4,6 +4,8 @@ This tutorial shows how to create a GKE cluster with Knative installed.
 We also run a Kafka cluster inside the Kubernetes cluster, to demonstrate
 Kafka as an event source for a Knative service.
 
+Knative provides a number of different ways to consume events from Apache Kafka. The simplest, which will be shown here, is to connect a Kafka EventSource directly to a Knative Serving application. Others include decoupling the Source and Service using a Channel (more applicable when the source is not a messaging platform itself) and routing via an internal Broker. Read the Strimizi [blog](https://strimzi.io/blog/2019/09/26/knative/) for more information.
+
 ## Create a GKE cluster
 ```shell
 ./setup-cluster.sh
