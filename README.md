@@ -197,6 +197,7 @@ Data,
 - https://knative.dev/docs/eventing/samples/kafka/source/
 - https://github.com/meteatamel/knative-tutorial
 - https://github.com/redhat-developer-demos/knative-tutorial
+- https://redhat-developer-demos.github.io/knative-tutorial/knative-tutorial/advanced/eventing-with-kafka.html
 - https://github.com/cloudacademy/knative-demo
 - https://strimzi.io/
 - https://strimzi.io/blog/2019/09/26/knative/
