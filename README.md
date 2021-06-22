@@ -5,24 +5,30 @@ We also run a Kafka cluster inside the Kubernetes cluster, to demonstrate
 Kafka as an event source for a Knative service.
 
 ## Create a GKE cluster
-`./setup-cluster.sh`
-`gcloud container clusters list`
+```shell
+./setup-cluster.sh
+gcloud container clusters list
+```
 
 # Get Kubernetes credentials
-gcloud container clusters get-credentials <cluster-name> --zone us-central1-c
+`gcloud container clusters get-credentials <cluster-name> --zone us-central1-c`
 
 ## Grant cluster administrator (admin) permissions to the current user. 
 ## To create the necessary RBAC rules for Istio, the current user requires admin permissions.
+```shell
 kubectl create clusterrolebinding cluster-admin-binding \
     --clusterrole=cluster-admin \
     --user=$(gcloud config get-value core/account)
+```
 
 ## Install Istio (version 1.8.2 or higher, without sidecar injection is recommended)
 ### Download Istio and setup istioctl
+```shell
 curl -L https://istio.io/downloadIstio | sh -
 export PATH=$PWD/istio-1.10.1/bin:$PATH
 
 istioctl install -f istio-minimal-operator.yaml
+```
 
 ### Verify Istio installation
 kubectl get pods --namespace istio-system
