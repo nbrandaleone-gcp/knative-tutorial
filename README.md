@@ -192,6 +192,9 @@ kubectl delete -f https://storage.googleapis.com/knative-nightly/eventing-kafka/
 
 ## Remove the Kafka Topic
 kubectl delete -f kafka-topic.yaml
+
+## Destroy GKE cluster
+gcloud container clusters delete <cluster-name> --zone us-central1-c
 ```
 
 ---
