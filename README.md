@@ -38,10 +38,10 @@ istioctl install -f istio-minimal-operator.yaml
 ### Verify Istio installation
 ```shell
 kubectl get pods --namespace istio-system
-```
 
-### Uninstall Istio
+## Uninstall Istio
 ### istioctl x uninstall --purge
+```
 
 ## Install Knative Operator
 ```shell
