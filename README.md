@@ -148,7 +148,9 @@ kubectl api-resources --api-group='sources.knative.dev'
 ### Ensure the Apache Kafka Event Source started with the necessary configuration
 ```shell
 kubectl get pods
-kubectl logs --selector='eventing.knative.dev/sourceName=kafka-source'
+kubectl get kafkasource
+kubectl describe kafkasource
+# kubectl logs --selector='eventing.knative.dev/sourceName=kafka-source'
 ```
 
 ## Test
