@@ -215,3 +215,4 @@ gcloud container clusters delete <cluster-name> --zone us-central1-c
 - https://strimzi.io/
 - https://strimzi.io/blog/2019/09/26/knative/
 - https://github.com/knative-sandbox/eventing-kafka
+- https://haralduebele.github.io/2020/06/10/serverless-and-knative-part-3-knative-eventing/
