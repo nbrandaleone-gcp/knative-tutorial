@@ -120,7 +120,7 @@ kubectl -n kafka run kafka-consumer -ti --image=quay.io/strimzi/kafka:0.23.0-kaf
 ```shell
 kubectl apply -f kafka-topic.yaml
 kubectl get kafkatopics -n kafka
-### kubectl -n kafka get kafkatopics.kafka.strimzi.io
+## kubectl -n kafka get kafkatopics.kafka.strimzi.io
 ```
 
 ## Deploy the Event Display Service
@@ -180,8 +180,8 @@ Data,
   Four
 
 # Teardown Steps
-## Remove Apache Kafka Event Source
 ```shell
+## Remove Apache Kafka Event Source
 kubectl delete -f knative-kafka-source.yaml
 
 ## Remove the Event Display target
