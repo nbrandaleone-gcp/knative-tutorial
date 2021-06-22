@@ -14,7 +14,9 @@ gcloud container clusters list
 ```
 
 # Get Kubernetes credentials
-`gcloud container clusters get-credentials <cluster-name> --zone us-central1-c`
+```shell
+gcloud container clusters get-credentials <cluster-name> --zone us-central1-c
+```
 
 ## Grant cluster administrator (admin) permissions to the current user. 
 ## To create the necessary RBAC rules for Istio, the current user requires admin permissions.
@@ -34,19 +36,27 @@ istioctl install -f istio-minimal-operator.yaml
 ```
 
 ### Verify Istio installation
-`kubectl get pods --namespace istio-system`
+```shell
+kubectl get pods --namespace istio-system
+```
 
 ### Uninstall Istio
 ### istioctl x uninstall --purge
 
 ## Install Knative Operator
-`kubectl apply -f https://github.com/knative/operator/releases/download/v0.23.0/operator.yaml`
+```shell
+kubectl apply -f https://github.com/knative/operator/releases/download/v0.23.0/operator.yaml
+```
 
 ### Verify installation
-`kubectl get deployment knative-operator`
+```shell
+kubectl get deployment knative-operator
+```
 
 ## Setup Knative Serving
-`kubectl apply -f knative-serving.yaml`
+```shell
+kubectl apply -f knative-serving.yaml
+```
 
 ### Verify serving installation
 ```shell
@@ -55,13 +65,19 @@ kubectl get deployment -n knative-serving
 ```
 
 ## Install DNS hack for testing
-`kubectl apply --filename https://github.com/knative/serving/releases/download/v0.23.0/serving-default-domain.yaml`
+```shell
+kubectl apply --filename https://github.com/knative/serving/releases/download/v0.23.0/serving-default-domain.yaml
+```
 
 ### Verify DNS domain
-`kubectl get cm config-domain --namespace knative-serving -o jsonpath='{.data}' | grep sslip.io`
+```shell
+kubectl get cm config-domain --namespace knative-serving -o jsonpath='{.data}' | grep sslip.io
+```
 
 ## Install Knative Eventing
-`kubectl apply -f knative-eventing.yaml`
+```shell
+kubectl apply -f knative-eventing.yaml
+```
 
 ### Verify Eventing
 ```shell
@@ -71,26 +87,38 @@ kubectl get KnativeEventing knative-eventing -n knative-eventing
 ```
 
 # Test Knative Serving
-`kubectl apply --filename service.yaml`
+```shell
+kubectl apply --filename service.yaml
+```
 
 ## Verify Serving
-`kubectl get ksvc helloworld-go  --output=custom-columns=NAME:.metadata.name,URL:.status.url`
-### Use curl or a web browser to test URL
+```shell
+kubectl get ksvc helloworld-go  --output=custom-columns=NAME:.metadata.name,URL:.status.url
+## Use curl or a web browser to test URL
+```
 
 ### Notice after 60 seconds with no traffic, the deployment will scale down to zero
-`watch kubectl get pods`
+```shell
+watch kubectl get pods
+```
 
 ## Clean up service
-`kubectl delete --filename service.yaml`
+```shell
+kubectl delete --filename service.yaml
+```
 
 # Kafka installation
-`kubectl create namespace kafka`
+```shell
+kubectl create namespace kafka
 
 ## Install Kafka Operator
-`kubectl create -f 'https://strimzi.io/install/latest?namespace=kafka' -n kafka`
+kubectl create -f 'https://strimzi.io/install/latest?namespace=kafka' -n kafka
+```
 
 ## Deploy a small, non-production, cluster of Apache Kafka (3 ephemeral zookeeper).
-`kubectl apply -n kafka -f kafka-cluster.yaml`
+```shell
+kubectl apply -n kafka -f kafka-cluster.yaml
+```
 
 ### Verify Kafka cluster
 ```shell
@@ -124,37 +152,38 @@ kubectl get kafkatopics -n kafka
 ```
 
 ## Deploy the Event Display Service
-`kubectl apply --filename event-display.yaml`
-
-### Ensure that the Service pod is running. The pod name will be prefixed with event-display
 ```shell
+kubectl apply --filename event-display.yaml
+
+## Ensure that the Service pod is running. The pod name will be prefixed with event-display
 kubectl get pods
 kubectl get ksvc
 ```
 
 # Install the Kafka Source component inside Knative
 ## Install the Kakfa controller manager
-`kubectl apply -f https://storage.googleapis.com/knative-nightly/eventing-kafka/latest/source.yaml`
-
-### Verify the controller and sink are running
 ```shell
+kubectl apply -f https://storage.googleapis.com/knative-nightly/eventing-kafka/latest/source.yaml
+
+## Verify the controller and sink are running
 kubectl get deployments.apps -n knative-eventing
 kubectl api-resources --api-group='sources.knative.dev'
 ```
 
 ## Glue Knative and Kafka together
-`kubectl apply -f knative-kafka-source.yaml`
-
-### Ensure the Apache Kafka Event Source started with the necessary configuration
 ```shell
+kubectl apply -f knative-kafka-source.yaml
+
+## Ensure the Apache Kafka Event Source started with the necessary configuration
 kubectl get pods
 kubectl get kafkasource
 kubectl describe kafkasource
 # kubectl logs --selector='eventing.knative.dev/sourceName=kafka-source'
 ```
 
-## Test
+## Test that Kafka is working
 ```shell
+## Send data to the topic
 kubectl -n kafka run kafka-producer -ti --image=quay.io/strimzi/kafka:0.23.0-kafka-2.8.0 \
 --rm=true --restart=Never -- bin/kafka-console-producer.sh \
 --broker-list my-cluster-kafka-bootstrap:9092 \
