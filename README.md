@@ -51,7 +51,7 @@ istioctl install -f istio-minimal-operator.yaml
 ### Verify serving installation
 ```shell
 kubectl get deployment -n knative-serving
-kubectl get namespace knative-serving -o 'go-template={{index .metadata.labels "serving.knative.dev/release"}}'
+# kubectl get namespace knative-serving -o 'go-template={{index .metadata.labels "serving.knative.dev/release"}}'
 ```
 
 ## Install DNS hack for testing
@@ -67,7 +67,7 @@ kubectl get namespace knative-serving -o 'go-template={{index .metadata.labels "
 ```shell
 kubectl get deployment -n knative-eventing
 kubectl get KnativeEventing knative-eventing -n knative-eventing
-kubectl get namespace knative-eventing -o 'go-template={{index .metadata.labels "eventing.knative.dev/release"}}'
+# kubectl get namespace knative-eventing -o 'go-template={{index .metadata.labels "eventing.knative.dev/release"}}'
 ```
 
 # Test Knative Serving
@@ -162,7 +162,10 @@ kubectl -n kafka run kafka-producer -ti --image=quay.io/strimzi/kafka:0.23.0-kaf
 ```
 
 ### Verify
-`kubectl logs --selector='serving.knative.dev/service=event-display' -c user-container`
+```shell
+kubectl logs --selector='serving.knative.dev/service=event-display' -c user-container \
+--follow
+```
 
 ## Expected Logs
 ☁️  cloudevents.Event
@@ -178,16 +181,18 @@ Data,
 
 # Teardown Steps
 ## Remove Apache Kafka Event Source
-`kubectl delete -f knative-kafka-source.yaml`
+```shell
+kubectl delete -f knative-kafka-source.yaml
 
 ## Remove the Event Display target
-`kubectl delete --filename event-display.yaml`
+kubectl delete --filename event-display.yaml
 
 ## Remove the Apache Kafka Event Controller
-`kubectl delete -f https://storage.googleapis.com/knative-nightly/eventing-kafka/latest/source.yaml`
+kubectl delete -f https://storage.googleapis.com/knative-nightly/eventing-kafka/latest/source.yaml
 
 ## Remove the Kafka Topic
-`kubectl delete -f kafka-topic.yaml`
+kubectl delete -f kafka-topic.yaml
+```
 
 ---
 
